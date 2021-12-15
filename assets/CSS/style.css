@@ -1,9 +1,27 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+:root {
+  --rich-black: #001021; 
+  --warm-black: #034748;
+  --command-blue: #1481BA;
+  --cyan-process: #11B5E4;
+  --carulean-crayola: #0CAADC;
+}
 
-@layer components {
-  .movie-nav {
-    @apply bg-red-200;
-  }
+.bg-rich-black {
+  background-color: var(--rich-black);
+}
+.bg-warm-black {
+  background-color: var(--warm-black);
+}
+.bg-command-blue {
+  background-color: var(--command-blue);
+}
+.bg-cyan-process {
+  background-color: var(--cyan-process);
+}
+.bg-carulean-crayola {
+  background-color: var(--carulean-crayola);
+}
+
+.body {
+    font-family: "syne", sans-serif, Helvetica;
 }
