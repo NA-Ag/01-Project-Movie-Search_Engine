@@ -1,6 +1,5 @@
 const api_key = 'api_key=e158b050ab89151ee885d5873ddf8ffb';
 const base_url = 'https://api.themoviedb.org/3';
-
 const api_url = base_url + '/discover/movie?sort_by=popularity.desc&' + api_key;
 const img_url = 'https:image.tmdb.org/t/p/w500';
 const section = document.getElementById('info');
