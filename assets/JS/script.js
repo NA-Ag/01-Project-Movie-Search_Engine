@@ -18,10 +18,14 @@ function getMovies(url){
 }
 
 function addCssClasses() {
-    
+    // HTML y css del padre de los resultados de busqueda
     resultsDiv.innerHTML = 
     `
-    <section id='info' class="results__section--movie-square p-2 bg-command-blue justify-items-center grid md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-x-2">
+    <section >
+        <div id='info' class="results__section--movie-square p-2 bg-command-blue justify-items-center grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-x-2 gap-y-2">
+        </div>
+        <div>
+        </div>
     </section>
     `
 }
@@ -34,19 +38,49 @@ function showMovies(data){
         const{title, poster_path, release_date, vote_average} = movie;
         const movieEl = document.createElement('div');
         movieEl.classList.add('movie');
+        movieEl.classList.add('flex');
+        movieEl.classList.add('flex-col');
+        // HTML y css de cada resultado de busqueda
         movieEl.innerHTML = `
         <img class="results__img--movie-poster" src="${IMG_URL + poster_path}" alt="${title}"> <!-- image poster -->
-        <ul class="result__ul--information-list">
-        <li class="text-2xl font-bold">${title}</li>
-        <li class="text-xl">${release_date}</li>
-        <li class="text-xl">${vote_average}</li>
-        <!-- Basic information (Title, score, genre, year) -->
-        </ul>
+        <div class="text-lg lg:text-base bg-white grow flex flex-col justify-between p-2" >
+            <h2 class="movie__h2 text-center font-bold">${title}</h2>
+            <ul class="">
+                <li class="text-base lg:text-sm">Release Date: <span class="font-bold">${release_date}</span></li>
+                <li class="text-base lg:text-sm">Audience Score: <span id="score" class="font-bold">${vote_average}</span></li>
+                <!-- Basic information (Title, score, genre, year) -->
+            </ul>
+        </div>
         `   
-    info.appendChild(movieEl);
-    })
+        info.appendChild(movieEl);
+        
+    });
+    checkScore();
 }
 
+function checkScore() {
+    const score = document.querySelectorAll('#score');
+    console.log(score)
+    score.forEach(score => {
+        scoreNumber = Number(score.innerHTML)
+        console.log(scoreNumber)
+        if (scoreNumber > 6 && scoreNumber < 8) {
+            score.classList.add("text-yellow-500");
+            return
+        } 
+        if (scoreNumber > 8) {
+            score.classList.add("text-green-500"); 
+            return
+        } 
+        if (scoreNumber < 6) {
+            score.classList.add("text-red-500")
+        }
+        console.log(score)
+        console.log(scoreNumber)
+
+    })
+        
+}
 form.addEventListener('submit', (i)=>{
     i.preventDefault();
 

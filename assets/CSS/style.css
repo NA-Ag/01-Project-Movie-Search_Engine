@@ -25,3 +25,13 @@
 .body {
     font-family: "syne", sans-serif, Helvetica;
 }
+
+/* Search results  */
+.movie {
+  max-width: 16rem;
+  border: solid black ;
+}
+
+.movie__h2 {
+  color: var(--rich-black);
+}
