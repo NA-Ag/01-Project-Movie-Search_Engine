@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="body">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/CSS/style.css">
+
+    <nav class="flex items-center justify-between flex-wrap p-6 movie-nav bg-rich-black" >
+        <div class="flex items-center flex-shrink-0 text-white mr-6">
+            <!-- <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg> -->
+            <span class="font-semibold text-xl tracking-tight">Movie Search Engine</span>
+        </div>
+        <div class="block lg:hidden">
+            <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+            <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+            </button>
+        </div>
+        <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+            <div class="text-sm lg:flex-grow">
+            <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                Top 10 Classics
+            </a>
+            <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                Best Horror Movies
+            </a>
+            <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+                Critically Acclaimed
+            </a>
+            </div>
+            <!--Search button-->
+        <form class="example" action="action_page.php" id='form'>
+            <input type="text" placeholder="Search.." name="search" class='search' id='search'>
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+        </div>
+    </nav>
+    <div class="bg-command-blue flex">
+        <img src="assets/images/annihilation-poster.jpg" alt="Placeholder poster">
+        <div> 
+            <h2>Anhilation</h2>
+            <p>90% | Release date: December 21, 2012 | Sci-fi / Terror | 2h 10m</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione at eos exercitationem, veritatis doloribus quae nostrum, aperiam mollitia aliquid sapiente minus commodi in laudantium sint eligendi? Blanditiis iste voluptatibus illo?</p>
+            <p>https://en.wikipedia.org/wiki/Annihilation_(film)</p>
+            <p>Directed by Steven Spielvergo</p>
+            <p>Cast: Chiclomino Rodríguez, Paco Pecas, Pitoloco Hernández</p>
+        </div>
+    </div>
+    <footer>
+
+    </footer>
+    <script src="assets/JS/movie_article.js"></script>
+</body>
+</html>

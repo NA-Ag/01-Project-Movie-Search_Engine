@@ -29,7 +29,7 @@
 /* Search results  */
 .movie {
   max-width: 16rem;
-  border: solid black ;
+  border: solid 5px black ;
 }
 
 .movie__h2 {
