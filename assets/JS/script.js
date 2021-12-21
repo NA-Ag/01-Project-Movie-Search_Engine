@@ -8,6 +8,8 @@ const close_btn = document.querySelector('.close-btn');
 const popup = document.querySelector('.popup');
 const main_popup = document.querySelector('.main-popup');
 
+let moviei = 0;
+
 const section = document.getElementById('info')
 const resultsDiv = document.querySelector(".results__div")
 let movieTitle;
@@ -48,7 +50,7 @@ function addCssClasses() {
     resultsDiv.innerHTML = 
     `
     <section >
-        <div id='info' class="results__section--movie-square p-2 bg-command-blue justify-items-center grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-x-2 gap-y-2">
+        <div id='info' class="results__section--movie-square relative p-2 bg-command-blue justify-items-center grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-x-2 gap-y-2">
         </div>
         <div>
         </div>
@@ -59,22 +61,26 @@ function addCssClasses() {
 function showMovies(data){
     info.innerHTML = '';
     data.forEach(movie => {
+        moviei = moviei + 1;
         const{title, poster_path, release_date, vote_average} = movie;
         const movieEl = document.createElement('div');
         movieEl.classList.add('movie');
         movieEl.classList.add('flex');
         movieEl.classList.add('flex-col');
+        movieEl.classList.add('relative');
+        
         // HTML y css de cada resultado de busqueda
         movieEl.innerHTML = `
         <img class="results__img--movie-poster" src="${IMG_URL + poster_path}" alt="${title}"> <!-- image poster -->
-        <div class="text-lg lg:text-base bg-white grow flex flex-col justify-between p-2" >
+        <div class="text-lg bg-white grow flex flex-col justify-between p-2 border-t-4 border-black" >
             <h2 class="movie__h2 text-center font-bold">${title}</h2>
             <ul class="">
-                <li class="text-base lg:text-sm">Release Date: <span class="font-bold">${release_date}</span></li>
-                <li class="text-base lg:text-sm">Audience Score: <span id="score" class="font-bold">${vote_average}</span></li>
+                <li class="text-base">Release Date: <span class="font-bold">${release_date}</span></li>
+                <li class="text-base">Audience Score: <span id="score" class="font-bold">${vote_average}</span></li>
                 <!-- Basic information (Title, score, genre, year) -->
             </ul>
         </div>
+        <p class="absolute inset-0 w-8 h-8 text-center text-xl py-auto text-white bg-black">${moviei}</p>
         `   
         info.appendChild(movieEl);
         movieTitle = title;      
@@ -84,10 +90,8 @@ function showMovies(data){
 
 function checkScore() {
     const score = document.querySelectorAll('#score');
-    console.log(score)
     score.forEach(score => {
         scoreNumber = Number(score.innerHTML)
-        console.log(scoreNumber)
         if (scoreNumber > 6 && scoreNumber < 8) {
             score.classList.add("text-yellow-500");
             return
@@ -99,9 +103,9 @@ function checkScore() {
         if (scoreNumber < 6) {
             score.classList.add("text-red-500")
         }
-        console.log(score)
-        console.log(scoreNumber)
-    })       
+
+    })
+        
 }
 
 form.addEventListener('submit', (i)=>{

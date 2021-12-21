@@ -30,8 +30,8 @@
 
 /* Search results  */
 .movie {
-    max-width: 16rem;
-    border: solid black ;
+  max-width: 16rem;
+  border: solid 5px black ;
 }
 
 .movie__h2 {
