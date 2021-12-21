@@ -3,11 +3,37 @@ const BASE_URL = 'https://api.themoviedb.org/3';
 const API_URL = BASE_URL + '/discover/movie?sort_by=popularity.desc&' + API_KEY;
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 const SEARCH_URL = BASE_URL + '/search/movie?' + API_KEY;
+const open_btn = document.querySelector('.open-btn');
+const close_btn = document.querySelector('.close-btn');
+const popup = document.querySelector('.popup');
+const main_popup = document.querySelector('.main-popup');
 
 const section = document.getElementById('info')
 const resultsDiv = document.querySelector(".results__div")
+let movieTitle;
 
 getMovies(API_URL)
+
+open_btn.addEventListener('click', () => {
+	popup.style.display = 'flex';
+	main_popup.style.cssText = 'animation:slide-in .5s ease; animation-fill-mode: forwards;';
+});
+
+close_btn.addEventListener('click', () => {
+	main_popup.style.cssText = 'animation:slide-out .5s ease; animation-fill-mode: forwards;';
+	setTimeout(() => {
+		popup.style.display = 'none';
+	}, 500);
+});
+
+window.addEventListener('click', (e) => {
+	if (e.target == document.querySelector('.popup-overlay')) {
+		main_popup.style.cssText = 'animation:slide-out .5s ease; animation-fill-mode: forwards;';
+		setTimeout(() => {
+			popup.style.display = 'none';
+		}, 500);
+	}
+});
 
 function getMovies(url){
     fetch(url).then(res => res.json()).then(data => {
@@ -32,8 +58,6 @@ function addCssClasses() {
 
 function showMovies(data){
     info.innerHTML = '';
-
-
     data.forEach(movie => {
         const{title, poster_path, release_date, vote_average} = movie;
         const movieEl = document.createElement('div');
@@ -53,7 +77,7 @@ function showMovies(data){
         </div>
         `   
         info.appendChild(movieEl);
-        
+        movieTitle = title;      
     });
     checkScore();
 }
@@ -77,10 +101,9 @@ function checkScore() {
         }
         console.log(score)
         console.log(scoreNumber)
-
-    })
-        
+    })       
 }
+
 form.addEventListener('submit', (i)=>{
     i.preventDefault();
 
@@ -96,3 +119,4 @@ form.addEventListener('submit', (i)=>{
 // Call functions
 
 addCssClasses();
+
