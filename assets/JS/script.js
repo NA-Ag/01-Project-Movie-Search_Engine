@@ -14,6 +14,15 @@ const section = document.getElementById('info')
 const resultsDiv = document.querySelector(".results__div")
 let movieTitle;
 
+const boton = document.querySelector('#boton');
+const menu = document.querySelector('#menu');
+
+boton.addEventListener('click', () => {
+    console.log('Click on')
+
+    menu.classList.toggle('hidden')
+});
+
 getMovies(API_URL)
 
 open_btn.addEventListener('click', () => {
