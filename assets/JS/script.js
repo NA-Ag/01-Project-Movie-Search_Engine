@@ -14,6 +14,15 @@ const section = document.getElementById('info')
 const resultsDiv = document.querySelector(".results__div")
 let movieTitle;
 
+const boton = document.querySelector('#boton');
+const menu = document.querySelector('#menu');
+
+boton.addEventListener('click', () => {
+    console.log('Click on')
+
+    menu.classList.toggle('hidden')
+});
+
 getMovies(API_URL)
 
 open_btn.addEventListener('click', () => {
@@ -71,8 +80,8 @@ function showMovies(data){
         
         // HTML y css de cada resultado de busqueda
         movieEl.innerHTML = `
-        <img class="results__img--movie-poster" src="${IMG_URL + poster_path}" alt="${title}"> <!-- image poster -->
-        <div class="text-lg bg-white grow flex flex-col justify-between p-2 border-t-4 border-black" >
+        <img class="results__img--movie-poster border rounded" src="${IMG_URL + poster_path}" alt="${title}"> <!-- image poster -->
+        <div class="text-lg rounded-md bg-white grow flex flex-col justify-between p-2 border-t-4 border-black" >
             <h2 class="movie__h2 text-center font-bold">${title}</h2>
             <ul class="">
                 <li class="text-base">Release Date: <span class="font-bold">${release_date}</span></li>
@@ -80,7 +89,7 @@ function showMovies(data){
                 <!-- Basic information (Title, score, genre, year) -->
             </ul>
         </div>
-        <p class="absolute inset-0 w-8 h-8 text-center text-xl py-auto text-white bg-black">${moviei}</p>
+        <p class="absolute inset-0 w-8 h-8 text-center text-xl py-auto text-white bg-black border rounded">${moviei}</p>
         `   
         info.appendChild(movieEl);
         movieTitle = title;      
