@@ -12,6 +12,7 @@ let moviei = 0;
 
 const section = document.getElementById('info')
 const resultsDiv = document.querySelector(".results__div")
+const popupResults = document.querySelector('.popup-results')
 let movieTitle;
 
 getMovies(API_URL)
@@ -119,6 +120,36 @@ form.addEventListener('submit', (i)=>{
         getMovies(API_URL)
     }
 })
+
+function randomSite(data) {
+
+    popupResults.innerHTML = '';
+    data.forEach(movie => {
+        moviei = moviei + 1;
+        const{title, poster_path, release_date, vote_average} = movie;
+        const movieEl = document.createElement('div');
+        movieEl.classList.add('movie');
+        movieEl.classList.add('flex');
+        movieEl.classList.add('flex-col');
+        movieEl.classList.add('relative');
+        
+        // HTML y css de cada resultado de busqueda
+        movieEl.innerHTML = `
+        <img class="results__img--movie-poster" src="${IMG_URL + poster_path}" alt="${title}"> <!-- image poster -->
+        <div class="text-lg bg-white grow flex flex-col justify-between p-2 border-t-4 border-black" >
+            <h2 class="movie__h2 text-center font-bold">${title}</h2>
+            <ul class="">
+                <li class="text-base">Release Date: <span class="font-bold">${release_date}</span></li>
+                <li class="text-base">Audience Score: <span id="score" class="font-bold">${vote_average}</span></li>
+                <!-- Basic information (Title, score, genre, year) -->
+            </ul>
+        </div>
+        <p class="absolute inset-0 w-8 h-8 text-center text-xl py-auto text-white bg-black">${moviei}</p>
+        `   
+        popupResults.appendChild(movieEl);
+        movieTitle = title;      
+    });
+}
 
 // Call functions
 
