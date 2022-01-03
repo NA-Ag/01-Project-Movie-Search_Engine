@@ -48,21 +48,9 @@
         <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mb-8 lg:mb-0">
           Critically Acclaimed
         </a>
-      </div>
-       
+      </div>     
         
         </div>
-      </nav>
-      <!--SlideOver-->
-      <div class="container">
-        <div class="popup">
-          <div class="popup-overlay"></div>
-          <div class="main-popup">
-            <div class="popup-content">
-              <span class="close-btn">&times;</span>
-              <div class="popup-results">
-              </div>
-            </div>
     <!--Search button-->
     <form class="example flex items-center space-x-5 flex-grow bg-white rounded-lg" action="action_page.php" id='form'>
       <input type="text" placeholder="Search.." name="search" class='search rounded-lg rounded-md bg-gray-200 focus:bg-gray-100 focus:ring ring-blue-500 focus:outline-none pl-8 flex items-center space-x-4 border border-gray-200 border-opacity-75 rounded-lg shadow-lg w-full space-x-6 flex' id='search'>
@@ -164,7 +152,9 @@
       <div class="main-popup">
       <div class="popup-content">
         <span class="close-btn">&times;</span>
-        <p>Movies</p>
+        <div class='popup-results'>
+        <a href="#" onclick="randomSite();">Random</a>
+        </div>
       </div>
       </div>
     </div>
