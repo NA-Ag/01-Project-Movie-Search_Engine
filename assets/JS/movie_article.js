@@ -78,3 +78,5 @@ function getSpiderman(MOVIE){
 // }
 
 // getMovies(API_URL)
+const id = localStorage.getItem("id")
+console.log(id)
