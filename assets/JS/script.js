@@ -62,7 +62,6 @@ function showMovies(data, searchInput){
         movieEl.classList.add('flex-col');
         movieEl.classList.add('relative');
 
-        
         // HTML y css de cada resultado de busqueda
         movieEl.innerHTML = `
         <div class="">
@@ -100,9 +99,7 @@ function checkScore() {
         if (scoreNumber < 6) {
             score.classList.add("text-red-700")
         }
-
-    })
-        
+    })       
 }
 
 
