@@ -19,6 +19,7 @@ const menu = document.querySelector('#menu');
 
 // Jqueary selectors
 const mainTitleEl = $("#mainTitle")
+const resultsDivEl = $(".results__div")
 
 function getMovies(url, searchInput){
     fetch(url).then(res => res.json()).then(data => {
@@ -49,13 +50,14 @@ function showMovies(data, searchInput){
     moviei = 0;
     data.forEach(movie => {
         moviei = moviei + 1;
-        let{title, poster_path, release_date, vote_average} = movie; 
+        let{title, poster_path, release_date, vote_average, id} = movie; 
         if (!title) title = "NA"
         const posterURL = (!poster_path) ? 'assets/images/img_unavailable.jpg' : IMG_URL + poster_path
         if (!release_date) release_date = "NA"
         if (!vote_average) vote_average = "NA"
 
         const movieEl = document.createElement('div');
+        movieEl.setAttribute("id", id)
         movieEl.classList.add('movie');
         movieEl.classList.add('flex');
         movieEl.classList.add('flex-col');
@@ -67,19 +69,18 @@ function showMovies(data, searchInput){
         <div class="">
         <img class="results__img--movie-poster" src="${posterURL}" alt="Image poster is not available"> <!-- image poster -->
         </div>
-        <div class="text-lg bg-white grow flex flex-col justify-between p-2 border-t-4 border-black" >
+        <div class="bg-white grow flex flex-col justify-between p-2 border-t-4 border-black" >
             <h2 class="text-center font-bold">${title}</h2>
             <ul class="">
-                <li class="text-base">Release Date: <span class="font-bold">${release_date}</span></li>
-                <li class="text-base">Audience Score: <span id="score" class="font-bold">${vote_average}</span></li>
+                <li class="">Release Date: <span class="font-bold">${release_date}</span></li>
+                <li class="">Audience Score: <span id="score" class="font-bold">${vote_average}</span></li>
                 <!-- Basic information (Title, score, genre, year) -->
             </ul>
         </div>
         <p class="absolute inset-0 w-8 h-8 text-center text-xl py-auto text-white bg-black">${moviei}</p>
-        <a class="absolute w-full h-full" href="movie_article.html"></a>
         `   
         info.appendChild(movieEl);
-        movieTitle = title;      
+        movieTitle = title; 
     });
     checkScore();
 }
@@ -103,7 +104,12 @@ function checkScore() {
     })
         
 }
-
+function saveToLocal() {
+    localStorage.setItem("id", this.id)
+    localStorage.setItem("name", $(this).children(3).children("h2").text())
+    localStorage.setItem("year", $(this).children(3).children("ul").children("li").eq(0).children("span").text().split("-")[0])
+    window.location.href = "movie_article.html";
+}
 
 // Event Listeners
 boton.addEventListener('click', () => {
@@ -144,7 +150,7 @@ form.addEventListener('submit', (i)=>{
         getMovies(API_URL)
     }
 })
-
+resultsDivEl.on('click', ".movie", saveToLocal);
 // Call functions
 
 addCssClasses();
