@@ -12,34 +12,38 @@ const section = document.getElementById('main')
 
 function getMovies(url) {
     fetch(url).then(res => res.json()).then(data => {
-        let obj = data
         console.log(data)
-        console.log(obj)
         showMovies(data)
     })
 }
 
 function showMovies(data) {
+    
     main.innerHTML = '';
-
-    data.map(movie => {
-        const {title, poster_path, release_date, vote_average, overview} = movie;
+        const posterURL = IMG_URL + data.poster_path;
+        console.log(data.genres);
+        const totalMinutes = data.runtime;
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
         const movieEl = document.createElement('div');
         movieEl.innerHTML = `
-        <div class="bg-command-blue flex p-6">
-            <img src="${IMG_URL + poster_path}" alt="Placeholder poster">
-            <div class="p-6"> 
-                <h2>${title}</h2>
-                <span>${vote_average} <span><h2>| Release date: ${release_date} | Sci-fi / Terror | 2h 10m</h2>
-                <p>${overview}</p>
-                <p>https://en.wikipedia.org/wiki/Annihilation_(film)</p>
-                <p>Directed by Steven Spielvergo</p>
-                <p>Cast: Chiclomino Rodríguez, Paco Pecas, Pitoloco Hernández</p>
-            </div>     
-        </div> 
+        <div class="p-6 -top-40 relative flex flex-col items-center">  
+        <img class="images relative border-4 border-black" src="${posterURL}" alt="Placeholder poster">  
+        <div>
+            <p class="text-5xl text-center font-semibold pt-4">${data.title}</p>
+            <p class="text-lg text-center pt-4 font-semibold">${data.vote_average*10}% | Release date: ${data.release_date} | ${data.genres[0].name}/${data.genres[1].name} | ${hours}:${minutes}</p>
+            <p class="pt-4 text-justify">${data.overview}</p>
+            <p class="pt-4 text-lg font-awesome">Directed by: Steven Spielvergo</p>
+            <p class="py-4 text-lg font-semibold">Cast: Chiclomino Rodríguez, Paco Pecas, Pitoloco Hernández</p>
+    
+            <button class="bg-slate-100 hover:bg-yellow-500 hover:text-lg font-bold py-2 px-4 border border-yellow-500 rounded justify-between">
+                Watch Trailer
+            </button>
+
+        </div>
+    </div>      
         `
         main.appendChild(movieEl);
-    })
 }
 
 getMovies(ID_URL)
