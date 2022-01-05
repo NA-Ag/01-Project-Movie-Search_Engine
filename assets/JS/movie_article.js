@@ -12,9 +12,10 @@ const section = document.getElementById('main')
 
 function getMovies(url) {
     fetch(url).then(res => res.json()).then(data => {
+        let obj = data
         console.log(data)
-        console.log(data.results)
-        showMovies(data.results)
+        console.log(obj)
+        showMovies(data)
     })
 }
 
@@ -42,7 +43,6 @@ function showMovies(data) {
 }
 
 getMovies(ID_URL)
-console.log(id)
 
 //Access to other HTML elements
 let wikiButton = document.querySelector("#wikipedia-btn");
