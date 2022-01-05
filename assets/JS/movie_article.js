@@ -53,10 +53,6 @@ const movieInfoEl = $("#movieInfo");
 let nameMovie = localStorage.getItem("name");
 let year = localStorage.getItem("year");
 
-console.log(nameMovie);
-console.log(year);
-
-
 //Wikipedia API begins here.
 $("#wikipedia-btn").click(function wikiLink(event){
     event.stopPropagation();
