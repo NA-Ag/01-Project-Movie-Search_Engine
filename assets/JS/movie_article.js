@@ -1,5 +1,4 @@
 const id = localStorage.getItem("id")
-console.log(id)
 
 //Access to other HTML elements
 let wikiButton = document.querySelector("#wikipedia-btn");
@@ -9,10 +8,6 @@ const movieInfoEl = $("#movieInfo");
 
 let nameMovie = localStorage.getItem("name");
 let year = localStorage.getItem("year");
-
-console.log(nameMovie);
-console.log(year);
-
 
 //Wikipedia API begins here.
 $("#wikipedia-btn").click(function wikiLink(event){
