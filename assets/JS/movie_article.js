@@ -1,4 +1,52 @@
+const API_KEY = 'api_key=e158b050ab89151ee885d5873ddf8ffb';
+const BASE_URL = 'https://api.themoviedb.org/3';
+const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+const SEARCH_URL = BASE_URL + '/search/movie?' + API_KEY;
+
 const id = localStorage.getItem("id")
+const ID_URL = BASE_URL + '/movie/' + id + '?' + API_KEY;
+console.log(ID_URL)
+console.log(id)
+
+const section = document.getElementById('main')
+
+function getMovies(url) {
+    fetch(url).then(res => res.json()).then(data => {
+        console.log(data)
+        showMovies(data)
+    })
+}
+
+function showMovies(data) {
+    
+    main.innerHTML = '';
+        const posterURL = IMG_URL + data.poster_path;
+        console.log(data.genres);
+        const totalMinutes = data.runtime;
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+        const movieEl = document.createElement('div');
+        movieEl.innerHTML = `
+        <div class="p-6 -top-40 relative flex flex-col items-center">  
+        <img class="images relative border-4 border-black" src="${posterURL}" alt="Placeholder poster">  
+        <div>
+            <p class="text-5xl text-center font-semibold pt-4">${data.title}</p>
+            <p class="text-lg text-center pt-4 font-semibold">${data.vote_average*10}% | Release date: ${data.release_date} | ${data.genres[0].name}/${data.genres[1].name} | ${hours}:${minutes}</p>
+            <p class="pt-4 text-justify">${data.overview}</p>
+            <p class="pt-4 text-lg font-awesome">Directed by: Steven Spielvergo</p>
+            <p class="py-4 text-lg font-semibold">Cast: Chiclomino Rodríguez, Paco Pecas, Pitoloco Hernández</p>
+    
+            <button class="bg-slate-100 hover:bg-yellow-500 hover:text-lg font-bold py-2 px-4 border border-yellow-500 rounded justify-between">
+                Watch Trailer
+            </button>
+
+        </div>
+    </div>      
+        `
+        main.appendChild(movieEl);
+}
+
+getMovies(ID_URL)
 
 //Access to other HTML elements
 let wikiButton = document.querySelector("#wikipedia-btn");

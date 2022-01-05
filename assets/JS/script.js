@@ -12,6 +12,7 @@ let moviei = 0;
 
 const section = document.getElementById('info')
 const resultsDiv = document.querySelector(".results__div")
+const popupResults = document.querySelector('.popup-results')
 let movieTitle;
 
 const boton = document.querySelector('#boton');
@@ -63,7 +64,6 @@ function showMovies(data, searchInput){
         movieEl.classList.add('flex-col');
         movieEl.classList.add('relative');
 
-        
         // HTML y css de cada resultado de busqueda
         movieEl.innerHTML = `
         <div class="">
@@ -100,9 +100,7 @@ function checkScore() {
         if (scoreNumber < 6) {
             score.classList.add("text-red-700")
         }
-
-    })
-        
+    })       
 }
 function saveToLocal() {
     localStorage.setItem("id", this.id)
@@ -150,9 +148,21 @@ form.addEventListener('submit', (i)=>{
         getMovies(API_URL)
     }
 })
+
+let sites = [
+    'https://github.com',
+    'https://stackoverflow.com',
+    'https://youtube.com',
+]
+
+function randomSite() {
+    let i = parseInt(Math.random() * sites.length);
+    location.href = sites[i];
+}
 resultsDivEl.on('click', ".movie", saveToLocal);
 // Call functions
 
 addCssClasses();
 getMovies(API_URL)
+
 
