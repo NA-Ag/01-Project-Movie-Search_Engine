@@ -8,9 +8,10 @@ const close_btn = document.querySelector('.close-btn');
 const popup = document.querySelector('.popup');
 const main_popup = document.querySelector('.main-popup');
 
+let searchInput;
 let moviei = 0;
 
-const section = document.getElementById('info')
+// const section = document.getElementById('info')
 const resultsDiv = document.querySelector(".results__div")
 const popupResults = document.querySelector('.popup-results')
 let movieTitle;
@@ -21,34 +22,46 @@ const menu = document.querySelector('#menu');
 // Jqueary selectors
 const mainTitleEl = $("#mainTitle")
 const resultsDivEl = $(".results__div")
+let searchHeadingEl;
 
-function getMovies(url, searchInput){
+function getMovies(url){
     fetch(url).then(res => res.json()).then(data => {
-    console.log(data)
-    console.log(data.results)
-    showMovies(data.results, searchInput);
+    if(!data.results === false) showMovies(data.results.slice(0, 5));
     })
+}
+
+function displayMoviesMainPage() {
+    searchHeadingEl = $("#searchHeading") 
+    for (i=0; i <5; i++) {
+        getMovies(API_URL)
+
+    }
 }
 
 function addCssClasses() {
     // HTML y css del padre de los resultados de busqueda
     resultsDiv.innerHTML = 
     `
-    <section class="bg-yellow-500" >
-        <h2 id="searchHeading" class="m-4 text-2xl font-medium inline-block">Trending at the moment: </h2>
-        <div id='info' class="results__section--movie-square relative justify-items-center grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-x-2 gap-y-2 p-2 bg-yellow-500">
-        </div>
+    <section id="mainSection" class="bg-yellow-500" >
     </section>
     `
 }
 
-function showMovies(data, searchInput){
-    const searchHeadingEl = $("#searchHeading") 
-    if (!searchInput === false) {
-        searchHeadingEl.html(`Results for: <span id="searchHeadingSpan" class="font-bold">"${searchInput}"</span>`)
-    } 
-    info.innerHTML = '';
+function showMovies(data){
+    const mainSection = document.getElementById("mainSection")
     moviei = 0;
+    if(!searchInput === true) {
+        console.log("esto solo debe aparecer al abrir la pagina")
+        const genreHeading = document.createElement("h2")
+        genreHeading.classList.add("m-4","text-2xl", "font-medium", "inline-block")
+        genreHeading.textContent = `Trending (genre) movies`
+        mainSection.appendChild(genreHeading)
+    }
+    if(!searchHeadingEl === false && !searchInput === false) searchHeadingEl.html(`Results for: <span id="searchHeadingSpan" class="font-bold">"${searchInput}"</span>`)
+    const genreSection = document.createElement('section')
+    genreSection.classList.add("results__section--movie-square","relative", "justify-items-center", "grid", "sm:grid-cols-2", "md:grid-cols-5", "gap-x-2", "gap-y-2", "p-2", "bg-yellow-500")
+    // genreSection.setAttribute("id","info")
+    mainSection.appendChild(genreSection)
     data.forEach(movie => {
         moviei = moviei + 1;
         let{title, poster_path, release_date, vote_average, id} = movie; 
@@ -59,30 +72,34 @@ function showMovies(data, searchInput){
 
         const movieEl = document.createElement('div');
         movieEl.setAttribute("id", id)
-        movieEl.classList.add('movie');
-        movieEl.classList.add('flex');
-        movieEl.classList.add('flex-col');
-        movieEl.classList.add('relative');
+        movieEl.classList.add("movie", "flex", "sm:flex-col", "relative", "hover:cursor-pointer");
 
         // HTML y css de cada resultado de busqueda
         movieEl.innerHTML = `
         <div class="">
-        <img class="results__img--movie-poster" src="${posterURL}" alt="Image poster is not available"> <!-- image poster -->
+            <img class="results__img--movie-poster" src="${posterURL}" alt="Image poster is not available"> <!-- image poster -->
         </div>
-        <div class="bg-white grow flex flex-col justify-between p-2 border-t-4 border-black" >
-            <h2 class="text-center font-bold">${title}</h2>
-            <ul class="">
+        <div class="results__div--movie-text bg-white grow sm:flex sm:flex-col justify-between p-2 sm:border-t-4 border-black" >
+            <h2 class="text-center font-bold border-b-2 border-black mb-2 sm:border-none">${title}</h2>
+            <ul class="sm:block">
                 <li class="">Release Date: <span class="font-bold">${release_date}</span></li>
                 <li class="">Audience Score: <span id="score" class="font-bold">${vote_average}</span></li>
+
                 <!-- Basic information (Title, score, genre, year) -->
             </ul>
         </div>
-        <p class="absolute inset-0 w-8 h-8 text-center text-xl py-auto text-white bg-black">${moviei}</p>
+        <p class="results__p--number-list absolute inset-0 w-8 h-8 text-center text-xl py-auto text-white bg-black">${moviei}</p>
         `   
-        info.appendChild(movieEl);
+        genreSection.appendChild(movieEl);
         movieTitle = title; 
     });
     checkScore();
+    const firstMovieNumber = document.querySelector(".results__p--number-list")
+    if (!firstMovieNumber === false) {
+        firstMovieNumber.classList.remove("bg-black")
+        firstMovieNumber.classList.add("bg-yellow-500", "text-black")
+
+    }
 }
 
 function checkScore() {
@@ -111,7 +128,6 @@ function saveToLocal() {
 
 // Event Listeners
 boton.addEventListener('click', () => {
-    console.log('Click on')
 
     menu.classList.toggle('hidden')
 });
@@ -139,30 +155,31 @@ window.addEventListener('click', (e) => {
 
 form.addEventListener('submit', (i)=>{
     i.preventDefault();
+    mainSection.innerHTML = '';
 
-    const searchInput = search.value;
+    searchInput = search.value;
 
     if(searchInput){
-        getMovies(SEARCH_URL + '&query=' + searchInput, searchInput)
+        getMovies(SEARCH_URL + '&query=' + searchInput)
     }else{
-        getMovies(API_URL)
+        displayMoviesMainPage()
     }
 })
 
-let sites = [
-    'https://github.com',
-    'https://stackoverflow.com',
-    'https://youtube.com',
-]
+// let sites = [
+//     'https://github.com',
+//     'https://stackoverflow.com',
+//     'https://youtube.com',
+// ]
 
-function randomSite() {
-    let i = parseInt(Math.random() * sites.length);
-    location.href = sites[i];
-}
+// function randomSite() {
+//     let i = parseInt(Math.random() * sites.length);
+//     location.href = sites[i];
+// }
 resultsDivEl.on('click', ".movie", saveToLocal);
 // Call functions
 
 addCssClasses();
-getMovies(API_URL)
+displayMoviesMainPage()
 
 
