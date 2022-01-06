@@ -8,6 +8,41 @@ const close_btn = document.querySelector('.close-btn');
 const popup = document.querySelector('.popup');
 const main_popup = document.querySelector('.main-popup');
 
+const genres = [
+    {
+        "id": 28,
+        "name": "Action"
+    },
+    {
+        "id": 16,
+        "name": "Animation"
+    },
+    {
+        "id": 35,
+        "name": "Comedy"
+    },
+    {
+        "id": 80,
+        "name": "Crime"
+    },
+    {
+        "id": 99,
+        "name": "Documentary"
+    },
+    {
+        "id": 18,
+        "name": "Drama"
+    },
+    {
+        "id": 27,
+        "name": "Horror"
+    },
+]
+
+const genre_id = '35'
+const GENRES_API = BASE_URL + '/discover/movie?' + API_KEY + '&with_genres=' + genre_id;
+console.log(GENRES_API)
+
 let searchInput;
 let moviei = 0;
 
@@ -33,6 +68,7 @@ function displayMoviesMainPage() {
     searchHeadingEl = $("#searchHeading") 
     for (i=0; i <5; i++) {
         getMovies(API_URL)
+        getMovies(GENRES_API)
 
     }
 }
