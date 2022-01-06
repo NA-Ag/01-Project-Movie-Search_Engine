@@ -27,21 +27,22 @@ function showMovies(data) {
         const minutes = totalMinutes % 60;
         const movieEl = document.createElement('div');
         movieEl.innerHTML = `
-        <div class="p-6 -top-40 relative flex flex-col items-center">  
-        <img class="images relative border-4 border-black" src="${posterURL}" alt="Placeholder poster">  
-        <div>
-            <p class="text-5xl text-center font-semibold pt-4">${data.title}</p>
-            <p class="text-lg text-center pt-4 font-semibold">${data.vote_average*10}% | Release date: ${data.release_date} | ${data.genres[0].name}/${data.genres[1].name} | ${hours}:${minutes}</p>
-            <p class="pt-4 text-justify">${data.overview}</p>
-            <p class="pt-4 text-lg font-awesome">Directed by: Steven Spielvergo</p>
-            <p class="py-4 text-lg font-semibold">Cast: Chiclomino Rodríguez, Paco Pecas, Pitoloco Hernández</p>
-    
-            <button class="bg-slate-100 hover:bg-yellow-500 hover:text-lg font-bold py-2 px-4 border border-yellow-500 rounded justify-between">
-                Watch Trailer
-            </button>
+        <div class="p-6 relative flex flex-col items-center bg-zinc-800 md:flex-row md:gap-6 md:items-start">  
+            <img class="-top-40 images relative md:-top-20" src="${posterURL}" alt="Placeholder poster">  
+            <div class="-top-40 mt-4 relative text-white md:-top-8">
+                <p class="text-3xl text-center font-semibold"><span class="">${data.title}</span></p>
+                <p class="text-xl text-center pt-4"><span class="">${data.vote_average*10}%</span> | Release date: <span class="">${data.release_date}</span> | <span class="">${data.genres[0].name}/${data.genres[1].name}</span> | <span class="">${hours}:${minutes}</span></p>
+                <p class="pt-4 text-justify text-lg"><span class="">${data.overview}</span></p>
+                <p class="pt-4 text-lg font-awesome font-bold">Director: <span class="text-teal-200 font-medium">Steven Spielvergo</span></p>
+                <p class="pt-4 text-lg font-bold">Writers: <span class="text-teal-200 font-medium">Chichotas Lopez, Skeller, Ricochet</span></p>
+                <p class="py-4 text-lg font-bold">Stars: <span class="text-teal-200 font-medium">Chiclomino Rodríguez, Paco Pecas, Pitoloco Hernández</span></p>
+        
+                <button class="hover:bg-yellow-500 hover:text-zinc-800 hover:border-none bg-zinc-800 font-bold py-2 px-4 border border-white rounded-full justify-between">
+                    Watch Trailer
+                </button>
 
-        </div>
-    </div>      
+            </div>
+        </div>      
         `
         main.appendChild(movieEl);
 }
