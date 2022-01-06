@@ -67,7 +67,7 @@ function showInfo(data) {
                 <p class="text-xl text-center pt-4"><span class="">${data.vote_average*10}%</span> | Release date: <span class="">${data.release_date}</span> | <span class="">${data.genres[0].name}/${data.genres[1].name}</span> | <span class="">${hours}:${minutes}</span></p>
                 <p class="pt-4 text-justify text-lg"><span class="">${data.overview}</span></p>
                 <p class="pt-4 text-lg font-awesome font-bold">Director: <span class="text-teal-200 font-medium">${directorName}</span></p>
-                <p class="pt-4 text-lg font-bold">Writers: <span class="text-teal-200 font-medium">Chichotas Lopez, Skeller, Ricochet</span></p>
+                <p class="pt-4 text-lg font-bold">Writers: <span class="text-teal-200 font-medium">${writerName}</span></p>
                 <p class="py-4 text-lg font-bold">Stars: <span class="text-teal-200 font-medium">${cast} - ${cast1} - ${cast2}</span></p>
         
                 <button class="hover:bg-yellow-500 hover:text-zinc-800 hover:border-none bg-zinc-800 font-bold py-2 px-4 border border-white rounded-full justify-between">
@@ -91,8 +91,12 @@ function showCredits(data1) {
     cast = data1.cast[0].name  
     cast1 = data1.cast[1].name 
     cast2 = data1.cast[2].name
-    writer = data1.crew
-    writer1 =  
+    writer = data1.crew.forEach(data => {
+        if(data.job === 'Writer'){
+            writerName = data.name;
+            console.log(writerName)
+        }
+    })
     director = data1.crew.forEach(data => {
         if(data.job === "Director"){
             directorName = data.name
