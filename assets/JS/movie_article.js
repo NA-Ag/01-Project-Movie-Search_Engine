@@ -91,17 +91,26 @@ function showCredits(data1) {
     cast = data1.cast[0].name  
     cast1 = data1.cast[1].name 
     cast2 = data1.cast[2].name
-    writer = data1.crew.forEach(data => {
-        if(data.job === 'Writer'){
-            writerName = data.name;
-            console.log(writerName)
-        }
-    })
+    // writer = data1.crew.findIndex(data => {
+    //     if(data.job === 'Writer'){
+    //         writerName1 = data.name;
+    //         // console.log(writerName)
+    //     }
+    // })
     director = data1.crew.forEach(data => {
         if(data.job === "Director"){
             directorName = data.name
-        }
+        } 
     });
+    writer = data1.crew.findIndex(data => {
+        if(data.job === 'Writer'){
+            writerName = data.name;
+            return writerName[0]
+            // console.log(writerName)
+        } else {
+            writerName = directorName
+        }
+    })
         
 }
 
