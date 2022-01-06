@@ -13,7 +13,6 @@ let moviei = 0;
 
 // const section = document.getElementById('info')
 const resultsDiv = document.querySelector(".results__div")
-const popupResults = document.querySelector('.popup-results')
 let movieTitle;
 
 const boton = document.querySelector('#boton');
@@ -47,8 +46,29 @@ function addCssClasses() {
     `
 }
 
+<<<<<<< Updated upstream
 function showMovies(data){
     const mainSection = document.getElementById("mainSection")
+=======
+function emptySearch(error){
+    resultsDiv.innerHTML =
+    `
+    <section class="bg-yellow-500" >
+    <h2 id="searchHeading" class="m-4 text-2xl font-medium inline-block">You can´t search for an empty result! </h2>
+    <div id='info' class="results__section--movie-square relative justify-items-center grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-x-2 gap-y-2 p-2 bg-yellow-500">
+    </div>
+    </section>
+    `
+    resultsDiv= error;
+}
+
+function showMovies(data, searchInput){
+    const searchHeadingEl = $("#searchHeading") 
+    if (!searchInput === false) {
+        searchHeadingEl.html(`Results for: <span id="searchHeadingSpan" class="font-bold">"${searchInput}"</span>`)
+    } 
+    info.innerHTML = '';
+>>>>>>> Stashed changes
     moviei = 0;
     if(!searchInput === true) {
         console.log("esto solo debe aparecer al abrir la pagina")
@@ -74,6 +94,7 @@ function showMovies(data){
         movieEl.setAttribute("id", id)
         movieEl.classList.add("movie", "flex", "sm:flex-col", "relative", "hover:cursor-pointer");
 
+        
         // HTML y css de cada resultado de busqueda
         movieEl.innerHTML = `
         <div class="">
@@ -117,7 +138,9 @@ function checkScore() {
         if (scoreNumber < 6) {
             score.classList.add("text-red-700")
         }
-    })       
+
+    })
+        
 }
 function saveToLocal() {
     localStorage.setItem("id", this.id)
@@ -153,6 +176,7 @@ window.addEventListener('click', (e) => {
 	}
 });
 
+
 form.addEventListener('submit', (i)=>{
     i.preventDefault();
     mainSection.innerHTML = '';
@@ -160,11 +184,25 @@ form.addEventListener('submit', (i)=>{
     searchInput = search.value;
 
     if(searchInput){
+<<<<<<< Updated upstream
         getMovies(SEARCH_URL + '&query=' + searchInput)
     }else{
         displayMoviesMainPage()
+=======
+        getMovies(SEARCH_URL + '&query=' + searchInput, searchInput)
     }
+
+    else if(searchInput === ""){
+        emptySearch("You can´t search for empty results!");
+    }
+    
+    else{
+        getMovies(API_URL)
+>>>>>>> Stashed changes
+    }
+    //wikiLink();
 })
+<<<<<<< Updated upstream
 
 // let sites = [
 //     'https://github.com',
@@ -176,10 +214,11 @@ form.addEventListener('submit', (i)=>{
 //     let i = parseInt(Math.random() * sites.length);
 //     location.href = sites[i];
 // }
+=======
+>>>>>>> Stashed changes
 resultsDivEl.on('click', ".movie", saveToLocal);
 // Call functions
 
 addCssClasses();
 displayMoviesMainPage()
-
 
