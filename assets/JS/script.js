@@ -58,9 +58,24 @@ const mainTitleEl = $("#mainTitle")
 const resultsDivEl = $(".results__div")
 let searchHeadingEl;
 
-function getMovies(url){
+function getMovies(url, searchInput){
     fetch(url).then(res => res.json()).then(data => {
-    if(!data.results === false) showMovies(data.results.slice(0, 5));
+    if (!data.results === false && !searchInput === false) {
+        showMovies(data.results.slice(0, 10));
+        return
+    }
+    if(!data.results === false) {
+        showMovies(data.results.slice(0, 5));
+        return
+    } 
+    if(data.results === undefined || data.results.length === 0) {
+        mainSection.innerHTML = ""
+        const noResultsMessage = document.createElement("h2")
+        noResultsMessage.classList.add("mx-4", "mt-8", "text-2xl", "font-medium", "inline-block", "font-bold", "mb-1")
+        noResultsMessage.textContent = "No results found"
+        mainSection.appendChild(noResultsMessage)
+        return
+    }
     })
 }
 
@@ -88,13 +103,13 @@ function showMovies(data){
     if(!searchInput === true) {
         console.log("esto solo debe aparecer al abrir la pagina")
         const genreHeading = document.createElement("h2")
-        genreHeading.classList.add("m-4","text-2xl", "font-medium", "inline-block")
+        genreHeading.classList.add("mx-4","mt-8", "text-2xl", "font-medium", "inline-block", "font-bold")
         genreHeading.textContent = `Trending (genre) movies`
         mainSection.appendChild(genreHeading)
     }
     if(!searchHeadingEl === false && !searchInput === false) searchHeadingEl.html(`Results for: <span id="searchHeadingSpan" class="font-bold">"${searchInput}"</span>`)
     const genreSection = document.createElement('section')
-    genreSection.classList.add("results__section--movie-square","relative", "justify-items-center", "grid", "sm:grid-cols-2", "md:grid-cols-5", "gap-x-2", "gap-y-2", "p-2", "bg-yellow-500")
+    genreSection.classList.add("results__section--movie-square","relative", "justify-items-center", "grid", "sm:grid-cols-2", "md:grid-cols-5", "gap-x-2", "gap-y-2", "p-2", "bg-yellow-500", "border-b-24" )
     // genreSection.setAttribute("id","info")
     mainSection.appendChild(genreSection)
     data.forEach(movie => {
@@ -107,7 +122,7 @@ function showMovies(data){
 
         const movieEl = document.createElement('div');
         movieEl.setAttribute("id", id)
-        movieEl.classList.add("movie", "flex", "sm:flex-col", "relative", "hover:cursor-pointer");
+        movieEl.classList.add("movie", "flex", "sm:flex-col", "relative", "hover:cursor-pointer", "hover:border-white");
 
         
         // HTML y css de cada resultado de busqueda
@@ -199,7 +214,11 @@ form.addEventListener('submit', (i)=>{
     searchInput = search.value;
 
     if(searchInput){
-        getMovies(SEARCH_URL + '&query=' + searchInput)
+        const headingSearch = document.createElement("h2")
+        headingSearch.classList.add("mx-4", "mt-8", "text-2xl", "font-medium", "inline-block", "font-bold", "mb-1")
+        headingSearch.innerHTML = `Showing results for: <span class="text-white">"${searchInput}"</span>`
+        mainSection.appendChild(headingSearch)
+        getMovies(SEARCH_URL + '&query=' + searchInput, searchInput)
     }else{
         displayMoviesMainPage()
     }
