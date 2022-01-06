@@ -40,6 +40,8 @@ const section1 = document.getElementById('cast')
 let cast;
 let cast1;
 let cast2;
+let writer;
+let writer1;
 let director;
 let directorName;
 
@@ -88,7 +90,9 @@ function getCredits(url1) {
 function showCredits(data1) {
     cast = data1.cast[0].name  
     cast1 = data1.cast[1].name 
-    cast2 = data1.cast[2].name   
+    cast2 = data1.cast[2].name
+    writer = data1.crew
+    writer1 =  
     director = data1.crew.forEach(data => {
         if(data.job === "Director"){
             directorName = data.name
