@@ -34,19 +34,25 @@
 }
 
 /* Search results  */
-.images {
-  width: 200px;
-  height: 300px;
-}
-@media (min-width: 768px) {
-    .images {
-      width: 300px;
-      height: 450px;
-    }
-}
 .movie {
   max-width: 16rem;
   border: solid 4px black;
+}
+@media (max-width: 640px ) {  
+  .movie {
+    max-width: 24rem;
+    min-width: 24rem;
+  }
+  .results__img--movie-poster {
+    min-width: 100px;
+    min-height: 150px;  
+    max-width: 100px;
+    max-height: 150px; 
+    border-right:4px solid black; 
+  }  
+  .results__div--movie-text {
+    max-height: 150px;
+  }
 }
 
 .open-btn {
@@ -134,4 +140,17 @@
   max-width: 400px;
   margin: 0 auto;
   color: white;
+}
+
+/* Movie Article html  */
+
+.images {
+  width: 200px;
+  height: 300px;
+}
+@media (min-width: 768px) {
+    .images {
+      width: 300px;
+      height: 450px;
+    }
 }
