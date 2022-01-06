@@ -5,23 +5,54 @@ const SEARCH_URL = BASE_URL + '/search/movie?' + API_KEY;
 
 const id = localStorage.getItem("id")
 const ID_URL = BASE_URL + '/movie/' + id + '?' + API_KEY;
+const CREDITS_URL = BASE_URL + '/movie/' + id + '/credits?' + API_KEY;
 console.log(ID_URL)
 console.log(id)
 
-const section = document.getElementById('main')
+const section = document.getElementById('info')
+const section1 = document.getElementById('cast')
 
-function getMovies(url) {
+// function getInfo(url, url1) {
+//     fetch(url).then(res => res.json()).then(data => {
+//         console.log(data)
+//         showInfo()
+//     })
+//     fetch(url1).then(res => res.json()).then(data1 => {
+//         console.log(data1)
+//         console.log(data1.cast[0].name)
+//         showInfo(data1)
+//     })
+// }
+
+// function getInfo(url, url1) {
+//     Promise.all([
+//         fetch(url).then(res => res.json()).then(data => {
+//             console.log(data)
+//         }),
+//         fetch(url1).then(res => res.json()).then(data1 => {
+//             console.log(data1)
+//             console.log(data1.cast[0].name)
+//         }),    
+//     ])
+//     showInfo(data, data1)
+// }
+
+let cast;
+let cast1;
+let cast2;
+let director;
+let directorName;
+
+function getInfo(url) {
     fetch(url).then(res => res.json()).then(data => {
         console.log(data)
-        showMovies(data)
+        showInfo(data)
     })
 }
 
-function showMovies(data) {
-    
-    main.innerHTML = '';
+function showInfo(data) {   
+    info.innerHTML = '';
         const posterURL = IMG_URL + data.poster_path;
-        console.log(data.genres);
         const totalMinutes = data.runtime;
         const hours = Math.floor(totalMinutes / 60);
         const minutes = totalMinutes % 60;
@@ -33,21 +64,41 @@ function showMovies(data) {
                 <p class="text-3xl text-center font-semibold"><span class="">${data.title}</span></p>
                 <p class="text-xl text-center pt-4"><span class="">${data.vote_average*10}%</span> | Release date: <span class="">${data.release_date}</span> | <span class="">${data.genres[0].name}/${data.genres[1].name}</span> | <span class="">${hours}:${minutes}</span></p>
                 <p class="pt-4 text-justify text-lg"><span class="">${data.overview}</span></p>
-                <p class="pt-4 text-lg font-awesome font-bold">Director: <span class="text-teal-200 font-medium">Steven Spielvergo</span></p>
+                <p class="pt-4 text-lg font-awesome font-bold">Director: <span class="text-teal-200 font-medium">${directorName}</span></p>
                 <p class="pt-4 text-lg font-bold">Writers: <span class="text-teal-200 font-medium">Chichotas Lopez, Skeller, Ricochet</span></p>
-                <p class="py-4 text-lg font-bold">Stars: <span class="text-teal-200 font-medium">Chiclomino Rodríguez, Paco Pecas, Pitoloco Hernández</span></p>
+                <p class="py-4 text-lg font-bold">Stars: <span class="text-teal-200 font-medium">${cast} - ${cast1} - ${cast2}</span></p>
         
                 <button class="hover:bg-yellow-500 hover:text-zinc-800 hover:border-none bg-zinc-800 font-bold py-2 px-4 border border-white rounded-full justify-between">
                     Watch Trailer
                 </button>
 
             </div>
-        </div>      
+        </div> 
         `
-        main.appendChild(movieEl);
+        info.appendChild(movieEl);
 }
 
-getMovies(ID_URL)
+function getCredits(url1) {
+    fetch(url1).then(res => res.json()).then(data1 => {
+        console.log(data1)
+        showCredits(data1)
+    })
+}
+
+function showCredits(data1) {
+    cast = data1.cast[0].name  
+    cast1 = data1.cast[1].name 
+    cast2 = data1.cast[2].name   
+    director = data1.crew.forEach(data => {
+        if(data.job === "Director"){
+            directorName = data.name
+        }
+    });
+        
+}
+
+getCredits(CREDITS_URL);
+getInfo(ID_URL);
 
 //Access to other HTML elements
 let wikiButton = document.querySelector("#wikipedia-btn");
