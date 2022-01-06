@@ -13,7 +13,6 @@ let moviei = 0;
 
 // const section = document.getElementById('info')
 const resultsDiv = document.querySelector(".results__div")
-const popupResults = document.querySelector('.popup-results')
 let movieTitle;
 
 const boton = document.querySelector('#boton');
@@ -74,6 +73,7 @@ function showMovies(data){
         movieEl.setAttribute("id", id)
         movieEl.classList.add("movie", "flex", "sm:flex-col", "relative", "hover:cursor-pointer");
 
+        
         // HTML y css de cada resultado de busqueda
         movieEl.innerHTML = `
         <div class="">
@@ -117,7 +117,9 @@ function checkScore() {
         if (scoreNumber < 6) {
             score.classList.add("text-red-700")
         }
-    })       
+
+    })
+        
 }
 function saveToLocal() {
     localStorage.setItem("id", this.id)
@@ -153,6 +155,7 @@ window.addEventListener('click', (e) => {
 	}
 });
 
+
 form.addEventListener('submit', (i)=>{
     i.preventDefault();
     mainSection.innerHTML = '';
@@ -164,6 +167,7 @@ form.addEventListener('submit', (i)=>{
     }else{
         displayMoviesMainPage()
     }
+    //wikiLink();
 })
 
 // let sites = [
@@ -181,5 +185,4 @@ resultsDivEl.on('click', ".movie", saveToLocal);
 
 addCssClasses();
 displayMoviesMainPage()
-
 
