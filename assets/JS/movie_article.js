@@ -3,8 +3,7 @@ const BASE_URL = 'https://api.themoviedb.org/3';
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 const SEARCH_URL = BASE_URL + '/search/movie?' + API_KEY;
 
-// const id = localStorage.getItem("id")
-const id = 634649
+const id = localStorage.getItem("id")
 const ID_URL = BASE_URL + '/movie/' + id + '?' + API_KEY;
 console.log(ID_URL)
 console.log(id)
