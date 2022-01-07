@@ -9,6 +9,8 @@ release date, the movie´s plot, and external articles related to that specific 
 
 To access the movie information, users must select the image and will be redirected to another HTML in which specific data about the film is presented.
 
+Deployed App: https://enrique-rojas-villegas.github.io/Movie-Search_Engine/
+
 USER STORY:
 
 AS A movie watcher<br/>
@@ -58,10 +60,12 @@ Tools Used in this Project:
 Actual Mockup of the finished Web-site:<br/>
 This site is responsive to different screen sizes, you can open your DevTools and check the differences in it.
 
-![Final Look of Mockup](./assets/images/Homepage.PNG)
+![Final Look of Mockup1](./assets/images/Homepage.PNG)
 
 Individual Movie Mockup:
 
 ![Final Look of Mockup](./assets/images/Movie-ss.PNG)
 
 This site is responsive to different screen sizes, you can open your DevTools and check the differences in it.
+
+Respository: https://github.com/Enrique-Rojas-Villegas/Movie-Search_Engine.git

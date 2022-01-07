@@ -94,28 +94,36 @@ let year = localStorage.getItem("year");
 wikiButtonEl.click(function wikiLink(event){
     event.stopPropagation();
 
+    //This function fetches the result from wikipedia based on 20 elements and a specific term inserted. 
         function redirectToWiki(){
-            const searchUrl = "https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&limit=20&format=json&search=";
+            const searchUrl = "https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&limit=70&format=json&search=";
             let url = searchUrl + nameMovie;
             fetch(url)
             .then(respuesta => respuesta.json())
             .then(function(resultado){
 
+                //Wikipedia changes some special characters and had to replace them to match the "normal" results.
                 nameMovie = nameMovie.replaceAll(" ", "_")
                 nameMovie = nameMovie.replaceAll("'", "%27")
-                nameMovie = nameMovie.replaceAll("&", "%26") 
+                nameMovie = nameMovie.replaceAll("&", "%26")
+                //Here we make variables to later compare to this results through wikipedia.  
                 var url1 = "https://en.wikipedia.org/wiki/" + nameMovie;
                 var url2 = "https://en.wikipedia.org/wiki/" + nameMovie + "_(film)";
                 var url3 = "https://en.wikipedia.org/wiki/" + nameMovie + "_(" + year + "_film)";
                 url2 = url2.replaceAll(" ", "_");
                 var urlBueno;
+                //Empty array declared for easier handling, the fetched results fromo the Wiki
                 const movieResult = [];
+                console.log(movieResult);
                 movieResult.push(resultado[3]);
 
+                //Checks if the array is empty, you would get a message returning an error. 
                 if(movieResult[0].length === 0){
                     mostrarError("No article related to this search");
                     return;
                 }
+
+                //this for loop allows to compare with url3 and url2 to see if array contains similar results. 
 
                 for(let i = 1; i < movieResult[0].length; i++){
 
@@ -131,6 +139,7 @@ wikiButtonEl.click(function wikiLink(event){
                 }
                 }
 
+                //This loop is to check the array for 1 result only, or if url2 and 3 arent a match. 
                 for(let j = 0; j < movieResult[0].length; j++){
 
                     if(movieResult[0].length === 1){
@@ -153,6 +162,7 @@ wikiButtonEl.click(function wikiLink(event){
                 }
                 
                 })
+                //This is the function that handles the error when theres no match or empty array. 
                 function mostrarError(error){
                     const mensajeError = document.createElement("p");
                     mensajeError.textContent = error;
@@ -161,11 +171,13 @@ wikiButtonEl.click(function wikiLink(event){
                     const contenido = document.querySelector("#wikistuff");
                     contenido.appendChild(mensajeError);
 
+                    //This time out, is to automatically remove the new message. 
                     setTimeout(() => {
                         mensajeError.remove();
                     }, 3000);
                 }
         }
+        //callback to the function, execution. 
         redirectToWiki();
     
     });
