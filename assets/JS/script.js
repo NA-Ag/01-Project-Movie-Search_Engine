@@ -23,14 +23,46 @@ const mainTitleEl = $("#mainTitle")
 const resultsDivEl = $(".results__div")
 let searchHeadingEl;
 
-function getMovies(url, searchInput){
+const genres = [{
+    "id": 28,
+    "name": "Action"
+},
+{
+    "id": 16,
+    "name": "Animation"
+},
+{
+    "id": 35,
+    "name": "Comedy"
+},
+{
+    "id": 80,
+    "name": "Crime"
+},
+{
+    "id": 99,
+    "name": "Documentary"
+},
+{
+    "id": 18,
+    "name": "Drama"
+},
+{
+    "id": 27,
+    "name": "Horror"
+}]
+    
+
+// const genre_id = "35"
+
+function getMovies(url, genre_name){
     fetch(url).then(res => res.json()).then(data => {
     if (!data.results === false && !searchInput === false) {
         showMovies(data.results.slice(0, 10));
         return
     }
     if(!data.results === false) {
-        showMovies(data.results.slice(0, 5));
+        showMovies(data.results.slice(0, 5), genre_name);
         return
     } 
     if(data.results === undefined || data.results.length === 0) {
@@ -46,9 +78,11 @@ function getMovies(url, searchInput){
 
 function displayMoviesMainPage() {
     searchHeadingEl = $("#searchHeading") 
-    for (i=0; i <5; i++) {
-        getMovies(API_URL)
-
+    for (i=0; i <genres.length; i++) {
+        const genre_id = genres[i].id
+        const genre_name = genres[i].name
+        const GENRES_API = BASE_URL + "/discover/movie?" + API_KEY + "&with_genres=" + genre_id;
+        getMovies(GENRES_API, genre_name)
     }
 }
 
@@ -61,14 +95,14 @@ function addCssClasses() {
     `
 }
 
-function showMovies(data){
+function showMovies(data, genre_name){
     const mainSection = document.getElementById("mainSection")
     moviei = 0;
+    if(genre_name === undefined) genre_name = "recent"
     if(!searchInput === true) {
-        console.log("esto solo debe aparecer al abrir la pagina")
         const genreHeading = document.createElement("h2")
         genreHeading.classList.add("mx-4","mt-8", "text-2xl", "font-medium", "inline-block", "font-bold")
-        genreHeading.textContent = `Trending (genre) movies`
+        genreHeading.textContent = `Trending ${genre_name} movies`
         mainSection.appendChild(genreHeading)
     }
     if(!searchHeadingEl === false && !searchInput === false) searchHeadingEl.html(`Results for: <span id="searchHeadingSpan" class="font-bold">"${searchInput}"</span>`)
@@ -143,33 +177,7 @@ function saveToLocal() {
     window.location.href = "movie_article.html";
 }
 
-// Event Listeners
-boton.addEventListener('click', () => {
-
-    menu.classList.toggle('hidden')
-});
-
-open_btn.addEventListener('click', () => {
-	popup.style.display = 'flex';
-	main_popup.style.cssText = 'animation:slide-in .5s ease; animation-fill-mode: forwards;';
-});
-
-close_btn.addEventListener('click', () => {
-	main_popup.style.cssText = 'animation:slide-out .5s ease; animation-fill-mode: forwards;';
-	setTimeout(() => {
-		popup.style.display = 'none';
-	}, 500);
-});
-
-window.addEventListener('click', (e) => {
-	if (e.target == document.querySelector('.popup-overlay')) {
-		main_popup.style.cssText = 'animation:slide-out .5s ease; animation-fill-mode: forwards;';
-		setTimeout(() => {
-			popup.style.display = 'none';
-		}, 500);
-	}
-});
-
+// Event Listener
 
 form.addEventListener('submit', (i)=>{
     i.preventDefault();
@@ -182,23 +190,13 @@ form.addEventListener('submit', (i)=>{
         headingSearch.classList.add("mx-4", "mt-8", "text-2xl", "font-medium", "inline-block", "font-bold", "mb-1")
         headingSearch.innerHTML = `Showing results for: <span class="text-white">"${searchInput}"</span>`
         mainSection.appendChild(headingSearch)
-        getMovies(SEARCH_URL + '&query=' + searchInput, searchInput)
+        getMovies(SEARCH_URL + '&query=' + searchInput)
     }else{
         displayMoviesMainPage()
     }
     //wikiLink();
 })
 
-// let sites = [
-//     'https://github.com',
-//     'https://stackoverflow.com',
-//     'https://youtube.com',
-// ]
-
-// function randomSite() {
-//     let i = parseInt(Math.random() * sites.length);
-//     location.href = sites[i];
-// }
 resultsDivEl.on('click', ".movie", saveToLocal);
 // Call functions
 

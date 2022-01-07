@@ -8,37 +8,11 @@ const id = localStorage.getItem("id")
 
 const ID_URL = BASE_URL + '/movie/' + id + '?' + API_KEY;
 const CREDITS_URL = BASE_URL + '/movie/' + id + '/credits?' + API_KEY;
-console.log(ID_URL)
-console.log(id)
 
 const section = document.getElementById('info')
 const section1 = document.getElementById('cast')
 
 let wikiButtonEl = $("#wikipedia-btn")
-// function getInfo(url, url1) {
-//     fetch(url).then(res => res.json()).then(data => {
-//         console.log(data)
-//         showInfo()
-//     })
-//     fetch(url1).then(res => res.json()).then(data1 => {
-//         console.log(data1)
-//         console.log(data1.cast[0].name)
-//         showInfo(data1)
-//     })
-// }
-
-// function getInfo(url, url1) {
-//     Promise.all([
-//         fetch(url).then(res => res.json()).then(data => {
-//             console.log(data)
-//         }),
-//         fetch(url1).then(res => res.json()).then(data1 => {
-//             console.log(data1)
-//             console.log(data1.cast[0].name)
-//         }),    
-//     ])
-//     showInfo(data, data1)
-// }
 
 let cast;
 let cast1;
@@ -50,7 +24,6 @@ let directorName;
 
 function getInfo(url) {
     fetch(url).then(res => res.json()).then(data => {
-        console.log(data)
         showInfo(data)
     })
 }
@@ -82,7 +55,6 @@ function showInfo(data) {
 
 function getCredits(url1) {
     fetch(url1).then(res => res.json()).then(data1 => {
-        console.log(data1)
         showCredits(data1)
     })
 }
@@ -91,12 +63,6 @@ function showCredits(data1) {
     cast = data1.cast[0].name  
     cast1 = data1.cast[1].name 
     cast2 = data1.cast[2].name
-    // writer = data1.crew.findIndex(data => {
-    //     if(data.job === 'Writer'){
-    //         writerName1 = data.name;
-    //         // console.log(writerName)
-    //     }
-    // })
     director = data1.crew.forEach(data => {
         if(data.job === "Director"){
             directorName = data.name
@@ -106,7 +72,6 @@ function showCredits(data1) {
         if(data.job === 'Writer'){
             writerName = data.name;
             return writerName[0]
-            // console.log(writerName)
         } else {
             writerName = directorName
         }
@@ -128,7 +93,6 @@ let year = localStorage.getItem("year");
 //Wikipedia API begins here.
 wikiButtonEl.click(function wikiLink(event){
     event.stopPropagation();
-    console.log("click")
 
         function redirectToWiki(){
             const searchUrl = "https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&limit=20&format=json&search=";
@@ -136,23 +100,17 @@ wikiButtonEl.click(function wikiLink(event){
             fetch(url)
             .then(respuesta => respuesta.json())
             .then(function(resultado){
-                console.log(resultado);
 
                 nameMovie = nameMovie.replaceAll(" ", "_")
                 nameMovie = nameMovie.replaceAll("'", "%27")
                 nameMovie = nameMovie.replaceAll("&", "%26") 
-                console.log(nameMovie);
                 var url1 = "https://en.wikipedia.org/wiki/" + nameMovie;
                 var url2 = "https://en.wikipedia.org/wiki/" + nameMovie + "_(film)";
                 var url3 = "https://en.wikipedia.org/wiki/" + nameMovie + "_(" + year + "_film)";
-                //console.log(url2);
                 url2 = url2.replaceAll(" ", "_");
-                //console.log(url2);
                 var urlBueno;
                 const movieResult = [];
                 movieResult.push(resultado[3]);
-                console.log(movieResult);
-                console.log(movieResult[0]);
 
                 if(movieResult[0].length === 0){
                     mostrarError("No article related to this search");
@@ -162,13 +120,11 @@ wikiButtonEl.click(function wikiLink(event){
                 for(let i = 1; i < movieResult[0].length; i++){
 
                     if(movieResult[0][i] === url3){
-                        console.log(movieResult[0][i]);
                         urlBueno = movieResult[0][i];
                         window.open(urlBueno);
                         return;
 
                     }else if(movieResult[0][i] === url2){
-                        console.log(movieResult[0][i]);
                         urlBueno = movieResult[0][i];
                         window.open(urlBueno);
                         return;
@@ -178,7 +134,6 @@ wikiButtonEl.click(function wikiLink(event){
                 for(let j = 0; j < movieResult[0].length; j++){
 
                     if(movieResult[0].length === 1){
-                        console.log(movieResult[0][0]);
                         urlBueno = movieResult[0][0];
                         window.open(urlBueno);
                         return;
@@ -190,7 +145,6 @@ wikiButtonEl.click(function wikiLink(event){
                     }
 
                     else if(movieResult[0][j] !== url3 && movieResult[0][j] !== url2){
-                        console.log(movieResult[0][0]);
                         urlBueno = movieResult[0][0];
                         window.open(urlBueno);
                         return;
