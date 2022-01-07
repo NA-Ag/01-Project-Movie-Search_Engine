@@ -139,7 +139,8 @@ wikiButtonEl.click(function wikiLink(event){
                 console.log(resultado);
 
                 nameMovie = nameMovie.replaceAll(" ", "_")
-                nameMovie = nameMovie.replaceAll("'", "%27") 
+                nameMovie = nameMovie.replaceAll("'", "%27")
+                nameMovie = nameMovie.replaceAll("&", "%26") 
                 console.log(nameMovie);
                 var url1 = "https://en.wikipedia.org/wiki/" + nameMovie;
                 var url2 = "https://en.wikipedia.org/wiki/" + nameMovie + "_(film)";
@@ -151,6 +152,12 @@ wikiButtonEl.click(function wikiLink(event){
                 const movieResult = [];
                 movieResult.push(resultado[3]);
                 console.log(movieResult);
+                console.log(movieResult[0]);
+
+                if(movieResult[0].length === 0){
+                    mostrarError("No article related to this search");
+                    return;
+                }
 
                 for(let i = 1; i < movieResult[0].length; i++){
 
@@ -158,11 +165,13 @@ wikiButtonEl.click(function wikiLink(event){
                         console.log(movieResult[0][i]);
                         urlBueno = movieResult[0][i];
                         window.open(urlBueno);
+                        return;
 
                     }else if(movieResult[0][i] === url2){
                         console.log(movieResult[0][i]);
                         urlBueno = movieResult[0][i];
                         window.open(urlBueno);
+                        return;
                 }
                 }
 
@@ -172,6 +181,7 @@ wikiButtonEl.click(function wikiLink(event){
                         console.log(movieResult[0][0]);
                         urlBueno = movieResult[0][0];
                         window.open(urlBueno);
+                        return;
                     }
 
                     else if(movieResult[0][j] != url3 && movieResult[0][j] != url2 && movieResult[0][j] != url1){
@@ -194,8 +204,12 @@ wikiButtonEl.click(function wikiLink(event){
                     mensajeError.textContent = error;
                     mensajeError.classList.add("error");
 
-                    const contenido = document.querySelector("#movieInfo");
+                    const contenido = document.querySelector("#wikistuff");
                     contenido.appendChild(mensajeError);
+
+                    setTimeout(() => {
+                        mensajeError.remove();
+                    }, 3000);
                 }
         }
         redirectToWiki();
