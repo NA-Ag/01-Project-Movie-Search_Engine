@@ -48,9 +48,6 @@ let writer1;
 let director;
 let directorName;
 
-const section = document.getElementById('info')
-const section1 = document.getElementById('cast')
-
 function getInfo(url) {
     fetch(url).then(res => res.json()).then(data => {
         console.log(data)
