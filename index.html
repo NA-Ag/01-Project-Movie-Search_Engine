@@ -40,13 +40,7 @@
     <div id="menu" class="w-full lg:w-auto block flex-grow lg:flex lg:items-center hidden py-3 lg:mb-0">
       <div class="text-sm lg:flex-grow">
         <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 mb-8 lg:mb-0">
-          Top 10 Classics
-        </a>
-        <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 mb-8 lg:mb-0">
-          Best Horror Movies
-        </a>
-        <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mb-8 lg:mb-0">
-          Critically Acclaimed
+          <div id="tagsEl"></div>
         </a>
       </div>     
         
@@ -56,93 +50,7 @@
       <input type="text" placeholder="Search.." name="search" class='search rounded-lg rounded-md bg-gray-200 focus:bg-gray-100 focus:ring ring-blue-500 focus:outline-none pl-8 flex items-center space-x-4 border border-gray-200 border-opacity-75 rounded-lg shadow-lg w-full space-x-6 flex' id='search'>
       <button type="submit"><i class="fa fa-search"></i></button>
   </form>
-    <!--Filter Test 1-->
-    <section>
-      <style>
-        .dropbtn {
-          background-color: #001021;
-          color: #87FBFD;
-          padding: 16px;
-          font-size: 16px;
-          border: none;
-          cursor: pointer;
-        }
-        .dropbtn:hover, .dropbtn:focus {
-          color: white;
-        }
-        #myInput {
-          box-sizing: border-box;
-          background-image: url('searchicon.png');
-          background-position: 14px 12px;
-          background-repeat: no-repeat;
-          font-size: 16px;
-          padding: 14px 20px 12px 45px;
-          border: none;
-          border-bottom: 1px solid #ddd;
-        }
-        #myInput:focus {outline: 3px solid #ddd;}
-        .dropdown {
-          position: relative;
-          display: inline-block;
-        }
-        .dropdown-content {
-          display: none;
-          position: absolute;
-          background-color: #F6F6F6;
-          min-width: 230px;
-          overflow: auto;
-          border: 1px solid #ddd;
-          z-index: 1;
-        }
-        .dropdown-content a {
-          color: black;
-          padding: 12px 16px;
-          text-decoration: none;
-          display: block;
-        }
-        .dropdown a:hover {background-color: #ddd;}
-        .show {display: block;}
-        </style>
-        <div class="dropdown">
-          <button onclick="menu_function()" class="dropbtn">Search</button>
-          <div id="myDropdown" class="dropdown-content">
-            <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-            <a href="#">Horror</a>
-            <a href="#">Comedy</a>
-            <a href="#">Family</a>
-            <a href="#">Romantic</a>
-            <a href="#">Suspense</a>
-            <a href="#">Action</a>
-            <a href="#">Drama</a>
-          </div>
-        </div>
-        <script>
-        /* When the user clicks on the button,
-        toggle between hiding and showing the dropdown content */
-        function menu_function() {
-          document.getElementById("myDropdown").classList.toggle("show");
-        }
-        function filterFunction() {
-          var input, filter, ul, li, a, i;
-          input = document.getElementById("myInput");
-          filter = input.value.toUpperCase();
-          div = document.getElementById("myDropdown");
-          a = div.getElementsByTagName("a");
-          for (i = 0; i < a.length; i++) {
-            txtValue = a[i].textContent || a[i].innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-              a[i].style.display = "";
-            } else {
-              a[i].style.display = "none";
-            }
-          }
-        }
-        </script>
-    </section>
     <!--Open button here for slide over-->
-        <div class="btn">
-          <button class="open-btn sticky top-0">OPEN</button>
-        </div>
     </div> <!--End of division 3-->
   </nav> <!--End of navigation bar-->
   <!--SlideOver-->

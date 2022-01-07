@@ -9,34 +9,6 @@ const CREDITS_URL = BASE_URL + '/movie/' + id + '/credits?' + API_KEY;
 console.log(ID_URL)
 console.log(id)
 
-const section = document.getElementById('info')
-const section1 = document.getElementById('cast')
-
-// function getInfo(url, url1) {
-//     fetch(url).then(res => res.json()).then(data => {
-//         console.log(data)
-//         showInfo()
-//     })
-//     fetch(url1).then(res => res.json()).then(data1 => {
-//         console.log(data1)
-//         console.log(data1.cast[0].name)
-//         showInfo(data1)
-//     })
-// }
-
-// function getInfo(url, url1) {
-//     Promise.all([
-//         fetch(url).then(res => res.json()).then(data => {
-//             console.log(data)
-//         }),
-//         fetch(url1).then(res => res.json()).then(data1 => {
-//             console.log(data1)
-//             console.log(data1.cast[0].name)
-//         }),    
-//     ])
-//     showInfo(data, data1)
-// }
-
 let cast;
 let cast1;
 let cast2;
@@ -44,6 +16,9 @@ let writer;
 let writer1;
 let director;
 let directorName;
+
+const section = document.getElementById('info')
+const section1 = document.getElementById('cast')
 
 function getInfo(url) {
     fetch(url).then(res => res.json()).then(data => {
