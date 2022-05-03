@@ -9,7 +9,7 @@ release date, the movie´s plot, and external articles related to that specific 
 
 To access the movie information, users must select the image and will be redirected to another HTML in which specific data about the film is presented.
 
-Deployed App: https://enrique-rojas-villegas.github.io/Movie-Search_Engine/
+Deployed App: https://na-ag.github.io/01-Project-Movie-Search_Engine/
 
 USER STORY:
 
@@ -68,4 +68,4 @@ Individual Movie Mockup:
 
 This site is responsive to different screen sizes, you can open your DevTools and check the differences in it.
 
-Respository: https://github.com/Enrique-Rojas-Villegas/Movie-Search_Engine.git
+Respository: https://github.com/NA-Ag/01-Project-Movie-Search_Engine
